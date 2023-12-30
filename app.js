@@ -1,28 +1,43 @@
-import express from 'express';
+import express from "express";
 import dotEnv from "dotenv";
 import cors from "cors";
-import routes from "./src/routes/index.js"
+import os from "os";
+import routes from "./src/routes/index.js";
+import mysqldb from "./src/database/mysql/index.js";
+import cluster from "cluster";
 class App {
     constructor() {
         dotEnv.config();
-        this.configureApp()
-            .then(app => {
-				console.log("2. Binding error-handlers.");
-                return this.configureHandlers(app)
+        const { CLUSTER_MODE } = process.env;
+        mysqldb.connect()
+            .then(async mysql => {
+                await mysql.sequelize.authenticate();
+                !CLUSTER_MODE && console.log(`1. MYSQL-connection has been established successfully.`);
+                return mysql;
             })
-            .then(app => {
-				console.log("3. Configuring express-server.");
-                return this.startServer(app)
+            .then(connection => {
+                !CLUSTER_MODE && console.log(`2. Configuring express-server.`);
+                return this.configureApp(connection);
             })
-            .catch(err => {
-                console.log("Error initializing the app", err);
+            .then((app) => {
+                !CLUSTER_MODE && console.log(`3. Binding error-handlers.`);
+                return this.configureHandlers(app);
             })
+            .then((app) => {
+                !CLUSTER_MODE && console.log(`4. Starting services.`);
+                return this.startServer(app);
+            })
+            .catch((err) => {
+                console.log(`BUXTER-API failed to initialize!`);
+                console.error(`error:`, err);
+            });
     }
 
-    configureApp = async () => {
+    configureApp = async (mysql) => {
+        global.mysql = mysql;
         const app = express();
-        app.use(express.json());
-        app.use(express.urlencoded({ extended: true }));
+        app.use(express.json({ limit: "10mb" }));
+        app.use(express.urlencoded({ extended: false }));
         app.use(cors());
         const { API_PREFIX } = process.env;
         app.use(`/${API_PREFIX}`, routes);
@@ -30,22 +45,52 @@ class App {
     };
 
     startServer(server) {
-        return new Promise((resolve, _) => {
-            const { PORT } = process.env;
-            server.listen(PORT, () => {
-                console.log(`Server is running on [ http://localhost:${PORT}/ ]`);
-            });
-            resolve(server);
-        })
+        const { CLUSTER_MODE } = process.env;
+
+        if (CLUSTER_MODE == `true ` && cluster.isPrimary) {
+            return this.startMasterCluster();
+        } else {
+            return this.startWorkerServer(server);
+        }
+    }
+
+    startMasterCluster() {
+        const numCPUs = os.cpus().length;
+        console.log(`Master ${process.pid} is running`);
+
+        for (let i = 0; i < numCPUs - 1; i++) {
+            cluster.fork();
+        }
+
+        cluster.on('exit', (worker, code, signal) => {
+            console.log(`Worker ${worker.process.pid} died`);
+        });
+    }
+
+    startWorkerServer(server) {
+        const { PORT } = process.env;
+        server.listen(PORT, () => {
+            console.log(`Worker ${process.pid} is running on [ http://localhost:${PORT} / ]`);
+        });
     }
 
     configureHandlers(app) {
         return new Promise((resolve, _) => {
-            app.use((req, res, next) => {
-                return res.status(404).send({
+            // handled 404 
+            app.use((req, res) => {
+                return res.status(404).json({
                     error: `Not found: ${req.url}`,
                 });
             });
+            // handled 500 this correctly
+            app.use((err, req, res, next) => {
+                console.log('err: ', err);
+                const error = err.message || "Internal Server error!";
+                res.status(500).json({
+                    error,
+                });
+            });
+
             resolve(app);
         });
     }

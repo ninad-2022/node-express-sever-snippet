@@ -1,44 +1,74 @@
+import createHttpError from "http-errors";
 import userProvider from "../providers/user-provider.js";
+import { isUuid } from 'uuidv4';
 
 class UserController {
 
     getUser = (req, res, next) => {
-        return userProvider.getUser()
-            .then(res => {
-                console.log('res: ', res);
-                return res.status(200).send('Hello, this is the root route!')
+        const { id } = req.params;
+
+        if (id && !isUuid(id)) throw createHttpError(404, `${id} is invalid.`);
+        return userProvider.getUser({ id })
+            .then(data => {
+                if (data.length === 0) {
+                    throw createHttpError(404, `${id} does not exist.`);
+                }
+                return res.status(200).json({ data, message: `User fetch successfully!` })
             })
             .catch(next)
     };
 
     createUser = (req, res, next) => {
-        return userProvider.createUser()
-            .then(res => {
-                return res.status(200).send('Hello, this is the root route!')
+        const { body: payload } = req
+
+        userProvider.getUser({ username: payload.username })
+            .then(data => {
+                if (data.length !== 0) {
+                    throw createHttpError(403, `username already exist`);
+                }
+                return userProvider.createUser(payload)
+            })
+            .then(data => {
+                return res.status(201).json({ data: data, message: `User created successfully!` })
             })
             .catch(next)
     };
 
     updateUser = (req, res, next) => {
-        return userProvider.updateUser()
-            .then(res => {
-                return res.status(200).send('Hello, this is the root route!')
+        const { params: { id }, body: payload } = req
+
+        return userProvider.getUser({ id })
+            .then(data => {
+                if (data.length === 0) {
+                    throw createHttpError(404, `user does not exist!`);
+                }
+                return userProvider.updateUser(payload, id)
+            })
+            .then(() => {
+                return userProvider.getUser({ id })
+            })
+            .then(data => {
+                return res.status(200).json({ data: data, message: `User updated successfully!` })
             })
             .catch(next)
     };
 
     deleteUser = (req, res, next) => {
-        return userProvider.deleteUser()
-            .then(res => {
-                return res.status(200).send('Hello, this is the root route!')
+        const { id } = req.params;
+
+        if (!isUuid(id)) throw createHttpError(404, `${id} is invalid uuid.`);
+        return userProvider.getUser({ id })
+            .then(data => {
+                if (data.length === 0) {
+                    throw createHttpError(404, `user does not exist!`);
+                }
+                return userProvider.deleteUser(id)
+            })
+            .then(() => {
+                return res.status(204).json({ data: null, message: `user deleted succcessfully!` });
             })
             .catch(next)
     };
-
-    helloWorld = (req, res, next) => {
-        return res.status(200).json({ message: 'Hello from the API!' });
-    }
-
 }
 
 export default new UserController();
