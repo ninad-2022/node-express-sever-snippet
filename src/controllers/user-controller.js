@@ -1,6 +1,7 @@
 const createHttpError= require("http-errors")
 const userProvider= require("../providers/user-provider.js")
-const { isUuid } = require('uuidv4');
+const { v4: isUuid } = require('uuid');
+
 
 class UserController {
 
