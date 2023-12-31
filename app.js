@@ -8,27 +8,21 @@ const cluster = require("cluster");
 class App {
     constructor() {
         dotEnv.config();
-        const { CLUSTER_MODE } = process.env;
         mysqldb.connect()
             .then(async mysql => {
                 await mysql.sequelize.authenticate();
-                !CLUSTER_MODE && console.log(`1. MYSQL-connection has been established successfully.`);
                 return mysql;
             })
             .then(connection => {
-                !CLUSTER_MODE && console.log(`2. Configuring express-server.`);
                 return this.configureApp(connection);
             })
             .then((app) => {
-                !CLUSTER_MODE && console.log(`3. Binding error-handlers.`);
                 return this.configureHandlers(app);
             })
             .then((app) => {
-                !CLUSTER_MODE && console.log(`4. Starting services.`);
                 return this.startServer(app);
             })
             .catch((err) => {
-                console.log(`BUXTER-API failed to initialize!`);
                 console.error(`error:`, err);
             });
     }
@@ -84,7 +78,7 @@ class App {
             });
             // handled 500
             app.use((err, req, res, next) => {
-                console.log('err: ', err);
+                console.log('err: ', err.stack);
                 const error = err.message || "Internal Server error!";
                 res.status(500).json({
                     error,
