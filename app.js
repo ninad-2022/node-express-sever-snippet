@@ -58,7 +58,7 @@ class App {
         const numCPUs = os.cpus().length;
         console.log(`Master ${process.pid} is running`);
 
-        for (let i = 0; i < numCPUs - 1; i++) {
+        for (let i = 0; i < numCPUs; i++) {
             cluster.fork();
         }
 
@@ -82,7 +82,7 @@ class App {
                     error: `Not found: ${req.url}`,
                 });
             });
-            // handled 500 this correctly
+            // handled 500
             app.use((err, req, res, next) => {
                 console.log('err: ', err);
                 const error = err.message || "Internal Server error!";
