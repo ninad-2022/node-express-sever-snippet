@@ -1,7 +1,7 @@
-const Sequelize = require("sequelize")
-const dotEnv = require("dotenv")
-const mysql2 = require("mysql2")
-const UserModel = require("./models/user.js")
+const Sequelize = require("sequelize");
+const dotEnv = require("dotenv");
+const mysql2 = require("mysql2");
+const UserModel = require("./models/user.js");
 
 class DbConn {
     constructor() {

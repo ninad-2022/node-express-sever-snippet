@@ -1,5 +1,5 @@
-const createHttpError= require("http-errors")
-const userProvider= require("../providers/user-provider.js")
+const createHttpError= require("http-errors");
+const userProvider= require("../providers/user-provider.js");
 const { v4: isUuid } = require('uuid');
 
 

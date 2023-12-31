@@ -1,5 +1,5 @@
-const express = require("express")
-const userController = require("../controllers/user-controller.js")
+const express = require("express");
+const userController = require("../controllers/user-controller.js");
 const Validator= require("../middlewares/validator.js");
 const { userSchema }= require("../validations/user-schema.js");
 
