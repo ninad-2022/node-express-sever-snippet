@@ -1,4 +1,4 @@
-import { uuid } from 'uuidv4'
+const { uuid } = require('uuidv4');
 class UserProvider {
 
     getUser = ({ id, username }) => {
@@ -29,4 +29,5 @@ class UserProvider {
         return models.user.destroy({ where: { id } })
     };
 }
-export default new UserProvider()
+
+module.exports = new UserProvider();

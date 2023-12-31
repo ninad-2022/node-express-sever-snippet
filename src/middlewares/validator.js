@@ -12,4 +12,4 @@ class Validator {
 	};
 }
 
-export default new Validator();
+module.exports = new Validator();

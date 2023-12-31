@@ -1,10 +1,10 @@
-import express from "express";
-import dotEnv from "dotenv";
-import cors from "cors";
-import os from "os";
-import routes from "./src/routes/index.js";
-import mysqldb from "./src/database/mysql/index.js";
-import cluster from "cluster";
+const express = require("express");
+const dotEnv = require("dotenv");
+const cors = require("cors");
+const os = require("os");
+const routes = require("./src/routes/index.js");
+const mysqldb = require("./src/database/mysql/index.js");
+const cluster = require("cluster");
 class App {
     constructor() {
         dotEnv.config();
@@ -96,4 +96,4 @@ class App {
     }
 }
 
-export default new App();
+module.exports = new App;

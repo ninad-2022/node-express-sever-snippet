@@ -1,6 +1,6 @@
-import createHttpError from "http-errors";
-import userProvider from "../providers/user-provider.js";
-import { isUuid } from 'uuidv4';
+const createHttpError= require("http-errors")
+const userProvider= require("../providers/user-provider.js")
+const { isUuid } = require('uuidv4');
 
 class UserController {
 
@@ -71,4 +71,4 @@ class UserController {
     };
 }
 
-export default new UserController();
+module.exports = new UserController();
