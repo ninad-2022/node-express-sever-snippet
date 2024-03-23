@@ -14,7 +14,7 @@ class UserController {
                 }
                 return res.status(200).json({ data, message: `User fetch successfully!` })
             })
-            .catch(next)
+            .catch(next);
     };
 
     createUser = (req, res, next) => {
@@ -30,7 +30,7 @@ class UserController {
             .then(data => {
                 return res.status(201).json({ data: data, message: `User created successfully!` })
             })
-            .catch(next)
+            .catch(next);
     };
 
     updateUser = (req, res, next) => {
@@ -49,7 +49,7 @@ class UserController {
             .then(data => {
                 return res.status(200).json({ data: data, message: `User updated successfully!` })
             })
-            .catch(next)
+            .catch(next);
     };
 
     deleteUser = (req, res, next) => {
@@ -66,7 +66,7 @@ class UserController {
             .then(() => {
                 return res.status(204).json({ data: null, message: `user deleted succcessfully!` });
             })
-            .catch(next)
+            .catch(next);
     };
 }
 

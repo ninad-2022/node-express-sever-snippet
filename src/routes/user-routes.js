@@ -6,17 +6,17 @@ import { userSchema } from "../validations/user-schema.js";
 const router = express.Router();
 
 router.get(`/:id?`,
-    userController.getUser)
+    userController.getUser);
 
 router.post(`/`,
     Validator.payload(userSchema),
-    userController.createUser)
+    userController.createUser);
     
 router.put(`/:id`, 
     Validator.payload(userSchema),
-    userController.updateUser)
+    userController.updateUser);
 
 router.delete(`/:id`,
-    userController.deleteUser)
+    userController.deleteUser);
 
 export default router;
