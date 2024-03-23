@@ -1,7 +1,7 @@
-const Sequelize = require("sequelize");
-const dotEnv = require("dotenv");
-const mysql2 = require("mysql2");
-const UserModel = require("./models/user.js");
+import Sequelize from "sequelize";
+import dotEnv from "dotenv";
+import mysql2 from "mysql2";
+import UserModel from "./models/user.js";
 
 class DbConn {
     constructor() {
@@ -10,7 +10,7 @@ class DbConn {
 
     connect = async () => {
         const { HOST, USER, PASSWORD, DATABASE, DIALECT } = process.env;
-        const conf = { host: HOST, dialect: DIALECT, logging: false, dialectModule:mysql2 };
+        const conf = { host: HOST, dialect: DIALECT, logging: false, dialectModule: mysql2 };
         let retryCount = 0;
         const attemptConnection = async () => {
             try {
@@ -36,4 +36,4 @@ class DbConn {
         return attemptConnection();
     };
 }
-module.exports = new DbConn;
+export default new DbConn;

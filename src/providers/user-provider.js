@@ -1,4 +1,4 @@
-const { v4: uuid } = require('uuid');
+import { v4 as uuid } from 'uuid';
 class UserProvider {
 
     getUser = ({ id, username }) => {
@@ -30,4 +30,4 @@ class UserProvider {
     };
 }
 
-module.exports = new UserProvider();
+export default new UserProvider();
