@@ -1,19 +1,17 @@
 import Joi from "joi"
 
-export const createUserSchema = Joi.object({
+export const userSchema = Joi.object({
     username: Joi.string().required(),
     age: Joi.number().required(),
     password: Joi.string().required(),
     hobbies: Joi.array().items(Joi.string()).default([]).required(),
 });
 
-export const updateUserSchema = Joi.object({
-    username: Joi.string().required(),
-    age: Joi.number().required(),
-    hobbies: Joi.array().items(Joi.string()).default([]).required(),
-});
+export const updateUserSchema = userSchema.keys({
+    password: Joi.forbidden()
+})
 
-export const loginSchema = Joi.object({
-    username: Joi.string().required(),
-    password: Joi.string().required(),
+export const loginSchema = userSchema.keys({
+    age: Joi.forbidden(),
+    hobbies: Joi.forbidden(),
 });
