@@ -7,7 +7,7 @@ class Validator {
 				res.status(400).json({ message: result.error.message });
 			} else {
 				next();
-			}
+			};
 		};
 	};
 };

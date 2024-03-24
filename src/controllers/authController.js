@@ -1,5 +1,5 @@
 import createHttpError from "http-errors";
-import userProvider from "../providers/user-provider.js";
+import userProvider from "../providers/userProvider.js";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../helpers/jwt-token.js";
 

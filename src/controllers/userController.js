@@ -1,5 +1,5 @@
 import createHttpError from "http-errors";
-import userProvider from "../providers/user-provider.js";
+import userProvider from "../providers/userProvider.js";
 import { v4 as isUuid } from 'uuid';
 import { generateToken } from "../helpers/jwt-token.js";
 class UserController {

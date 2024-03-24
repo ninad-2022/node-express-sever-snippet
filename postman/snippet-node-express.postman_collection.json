@@ -33,7 +33,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI1NGI5NGU2LTc2NzQtNDMwYS05N2E2LWVlMGU4MzkxYzZiYSIsInVzZXJuYW1lIjoibmluYWQiLCJpYXQiOjE3MTEyODY3MDQsImV4cCI6MTcxMTI5MzkwNH0.lnlCTcYMVPRthGWslhTyKgAfRNnYxTNhIgprcmK3MjE",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI1NGI5NGU2LTc2NzQtNDMwYS05N2E2LWVlMGU4MzkxYzZiYSIsInVzZXJuYW1lIjoibmluYWQiLCJpYXQiOjE3MTEyODc2MDYsImV4cCI6MTcxMTI5NDgwNn0.P02qLeJf8ldl9jewhk0RWSjrjbk2A3kQDj0DA4r-YvE",
 									"type": "string"
 								}
 							]
@@ -104,7 +104,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"username\": \"mahes\",\n  \"age\": 42,\n  \"hobbies\": [\"reading\", \"hu\", \"hiking\"],\n  \"password\":\"India@123\"\n}",
+							"raw": "{\n  \"username\": \"mahssses\",\n  \"age\": 42,\n  \"hobbies\": [\"reading\", \"hu\", \"hiking\"],\n  \"password\":\"India@123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -185,11 +185,22 @@
 									"});",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI1NGI5NGU2LTc2NzQtNDMwYS05N2E2LWVlMGU4MzkxYzZiYSIsInVzZXJuYW1lIjoibmluYWQiLCJpYXQiOjE3MTEyODk3MjIsImV4cCI6MTcxMTI5NjkyMn0.MNOXxOGsDeiHRlRIFXXSyLnWFq3MEbelZBZxMjaOfN8",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -213,7 +224,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "34624a1e-5537-4e19-88aa-376f3ea0b12a"
+									"value": "254b94e6-7674-430a-97a6-ee0e8391c6ba"
 								}
 							]
 						},
@@ -242,7 +253,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IksdsdsdpXVCJ9.eyJpZCI6IjI1NGI5NGU2LTc2ssNzQtNDMwYS05N2E2LWVlMGU4MzkxYzZiYSIsInVzZXJuYW1lIjoibmluYWQiLCJpYXQiOjE3MTEyNzM0MjMsImV4cCI6MTcxMTI4MDYyM30.gBEEvBCsyomADuFwRfOt9lczBvqmWWXWeYsIOoN0s4c\"",
+									"value": "",
 									"type": "string"
 								}
 							]

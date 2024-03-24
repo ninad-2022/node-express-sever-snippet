@@ -9,7 +9,7 @@ export const userSchema = Joi.object({
 
 export const updateUserSchema = userSchema.keys({
     password: Joi.forbidden()
-})
+});
 
 export const loginSchema = userSchema.keys({
     age: Joi.forbidden(),

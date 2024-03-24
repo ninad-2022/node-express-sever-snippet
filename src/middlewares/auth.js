@@ -1,13 +1,11 @@
 import createHttpError from "http-errors";
 import { verifyToken } from "../helpers/jwt-token.js";
 
-class Authorization {
+class Auth {
     verify = () => {
         return (req, res, next) => {
             const { authorization } = req.headers;
-            if (!authorization) {
-                return next(createHttpError(401));
-            };
+            if (!authorization) return next(createHttpError(401));
             try {
                 const token = authorization.slice(7)
                 const verifiedData = verifyToken(token);
@@ -19,4 +17,4 @@ class Authorization {
         };
     };
 };
-export default new Authorization();
+export default new Auth();
