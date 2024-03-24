@@ -3,7 +3,7 @@ import dotEnv from "dotenv";
 import cors from "cors";
 import os from "os";
 import routes from "./src/routes/index.js";
-import mysqldb from "./src/database/mysql/index.js";
+import mysqldb from "./src/db/mysql/index.js";
 import cluster from "cluster";
 class App {
     constructor() {

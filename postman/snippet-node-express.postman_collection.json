@@ -22,13 +22,36 @@
 									"    pm.response.to.have.status(200);",
 									"});"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI1NGI5NGU2LTc2NzQtNDMwYS05N2E2LWVlMGU4MzkxYzZiYSIsInVzZXJuYW1lIjoibmluYWQiLCJpYXQiOjE3MTEyODY3MDQsImV4cCI6MTcxMTI5MzkwNH0.lnlCTcYMVPRthGWslhTyKgAfRNnYxTNhIgprcmK3MjE",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Athorization",
+								"value": "",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{url-local}}/users/:Id",
 							"host": [
@@ -61,16 +84,27 @@
 									"});",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI1NGI5NGU2LTc2NzQtNDMwYS05N2E2LWVlMGU4MzkxYzZiYSIsInVzZXJuYW1lIjoibmluYWQiLCJpYXQiOjE3MTEyODc2MDYsImV4cCI6MTcxMTI5NDgwNn0.P02qLeJf8ldl9jewhk0RWSjrjbk2A3kQDj0DA4r-YvE",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"username\": \"ramesh\",\n  \"age\": 42,\n  \"hobbies\": [\"reading\", \"hu\", \"hiking\"]\n}",
+							"raw": "{\n  \"username\": \"mahes\",\n  \"age\": 42,\n  \"hobbies\": [\"reading\", \"hu\", \"hiking\"],\n  \"password\":\"India@123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -191,7 +225,53 @@
 		},
 		{
 			"name": "auth",
-			"item": []
+			"item": [
+				{
+					"name": "sign up",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "log in",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IksdsdsdpXVCJ9.eyJpZCI6IjI1NGI5NGU2LTc2ssNzQtNDMwYS05N2E2LWVlMGU4MzkxYzZiYSIsInVzZXJuYW1lIjoibmluYWQiLCJpYXQiOjE3MTEyNzM0MjMsImV4cCI6MTcxMTI4MDYyM30.gBEEvBCsyomADuFwRfOt9lczBvqmWWXWeYsIOoN0s4c\"",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"ninad\",\r\n    \"password\": \"India@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-local}}/auth/login",
+							"host": [
+								"{{url-local}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
