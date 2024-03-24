@@ -20,7 +20,6 @@ class DbConn {
                         user: UserModel(sequelize),
                     },
                 };
-
                 db.sequelize = sequelize;
                 return db;
             } catch (error) {

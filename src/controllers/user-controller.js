@@ -10,9 +10,7 @@ class UserController {
         if (id && !isUuid(id)) throw createHttpError(404, `${id} is invalid.`);
         return userProvider.getUser({ id })
             .then(data => {
-                if (data.length === 0) {
-                    throw createHttpError(404, `${id} does not exist.`);
-                }
+                if (data.length === 0) throw createHttpError(404, `${id} does not exist.`);
                 return res.status(200).json({ data, message: `User fetch successfully!` })
             })
             .catch(next);
@@ -23,9 +21,7 @@ class UserController {
 
         return userProvider.getUser({ username: payload.username })
             .then(data => {
-                if (data.length !== 0) {
-                    throw createHttpError(403, `username already exist`);
-                }
+                if (data.length !== 0) throw createHttpError(403, `username already exist`);
                 return userProvider.createUser(payload)
             })
             .then(data => {
@@ -40,9 +36,7 @@ class UserController {
 
         return userProvider.getUser({ id })
             .then(data => {
-                if (data.length === 0) {
-                    throw createHttpError(404, `user does not exist!`);
-                }
+                if (data.length === 0) throw createHttpError(404, `user does not exist!`);
                 return userProvider.updateUser(payload, id)
             })
             .then(() => {
@@ -60,9 +54,7 @@ class UserController {
         if (!isUuid(id)) throw createHttpError(404, `${id} is invalid uuid.`);
         return userProvider.getUser({ id })
             .then(data => {
-                if (data.length === 0) {
-                    throw createHttpError(404, `user does not exist!`);
-                }
+                if (data.length === 0) throw createHttpError(404, `user does not exist!`);
                 return userProvider.deleteUser(id)
             })
             .then(() => {

@@ -40,7 +40,6 @@ class App {
 
     startServer(server) {
         const { CLUSTER_MODE } = process.env;
-
         if (CLUSTER_MODE == `true ` && cluster.isPrimary) {
             return this.startMasterCluster();
         } else {
@@ -64,19 +63,17 @@ class App {
     startWorkerServer(server) {
         const { PORT } = process.env;
         server.listen(PORT, () => {
-            console.log(`Worker ${process.pid} is running on [ http://localhost:${PORT} / ]`);
+            console.log(`Worker ${process.pid} is running on [ http://localhost:${PORT} ]`);
         });
     };
 
     configureHandlers(app) {
         return new Promise((resolve, _) => {
-            // handled 404 
             app.use((req, res) => {
                 return res.status(404).json({
                     error: `Not found: ${req.url}`,
                 });
             });
-            // handled 500
             app.use((err, req, res, next) => {
                 console.log('err: ', err.stack);
                 const error = err.message || "Internal Server error!";
