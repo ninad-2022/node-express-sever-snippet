@@ -25,7 +25,7 @@ class App {
             .catch((err) => {
                 console.error(`error:`, err);
             });
-    }
+    };
 
     configureApp = async (mysql) => {
         global.mysql = mysql;
@@ -46,7 +46,7 @@ class App {
         } else {
             return this.startWorkerServer(server);
         }
-    }
+    };
 
     startMasterCluster() {
         const numCPUs = os.cpus().length;
@@ -59,14 +59,14 @@ class App {
         cluster.on('exit', (worker, code, signal) => {
             console.log(`Worker ${worker.process.pid} died`);
         });
-    }
+    };
 
     startWorkerServer(server) {
         const { PORT } = process.env;
         server.listen(PORT, () => {
             console.log(`Worker ${process.pid} is running on [ http://localhost:${PORT} / ]`);
         });
-    }
+    };
 
     configureHandlers(app) {
         return new Promise((resolve, _) => {
@@ -87,7 +87,7 @@ class App {
 
             resolve(app);
         });
-    }
-}
+    };
+};
 
 export default new App;

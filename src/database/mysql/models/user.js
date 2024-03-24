@@ -12,6 +12,9 @@ const UserModel = (sequelize) => {
         age: {
             type: DataTypes.INTEGER
         },
+        password: {
+            type: DataTypes.STRING
+        },
         hobbies: {
             type: DataTypes.ARRAY(DataTypes.STRING)
         }

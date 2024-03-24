@@ -1,6 +1,7 @@
 import createHttpError from "http-errors";
 import userProvider from "../providers/user-provider.js";
 import { v4 as isUuid } from 'uuid';
+import { generateToken } from "../helpers/jwt-token.js";
 class UserController {
 
     getUser = (req, res, next) => {
@@ -20,7 +21,7 @@ class UserController {
     createUser = (req, res, next) => {
         const { body: payload } = req
 
-        userProvider.getUser({ username: payload.username })
+        return userProvider.getUser({ username: payload.username })
             .then(data => {
                 if (data.length !== 0) {
                     throw createHttpError(403, `username already exist`);
@@ -28,7 +29,8 @@ class UserController {
                 return userProvider.createUser(payload)
             })
             .then(data => {
-                return res.status(201).json({ data: data, message: `User created successfully!` })
+                const token = generateToken({ id: data.id, username: data.username });
+                return res.status(201).json({ data: { id: data.id, username: data.username, token }, message: `User created successfully!` })
             })
             .catch(next);
     };

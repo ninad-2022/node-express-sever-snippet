@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid';
+import bcrypt from "bcryptjs";
 class UserProvider {
 
     getUser = ({ id, username }) => {
@@ -13,9 +14,10 @@ class UserProvider {
         return models.user.findAll({ where })
     };
 
-    createUser = (payload) => {
+    createUser = async (payload) => {
         const { models } = mysql;
         payload.id = uuid();
+        payload.password = bcrypt.hashSync(payload.password, 10);
         return models.user.create(payload)
     };
 
