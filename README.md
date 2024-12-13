@@ -9,7 +9,7 @@
 * Requires Node 18.x (+) version, and NPM 10.x (+) version
 * Check if the `./.env` is updated
 * configure database
-* Run `npm install --legacy-peer-deps` to install the necessary dependencies
+* Run `npm install` to install the necessary dependencies
 * Run `npm run start:dev` to start app in debug or development mode
 * Run `npm run start:multi` to start app in nodejs cluster
 
